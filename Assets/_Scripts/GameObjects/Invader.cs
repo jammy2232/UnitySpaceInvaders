@@ -14,6 +14,23 @@ public class Invader : MonoBehaviour {
 
 	bool dead = false;
 
+	// Subscribe to events 
+	void OnEnable()
+	{
+		MainGameManager.reset += Kill;
+	}
+
+	// Subscribe to events 
+	void OnDisable()
+	{
+		MainGameManager.reset -= Kill;
+	}
+
+	void Kill()
+	{
+		Destroy (this.gameObject);
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -27,7 +44,7 @@ public class Invader : MonoBehaviour {
 	}
 
 	// Collision And death 
-	void OnTriggerStay(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 
 		if (other.gameObject.tag == "playerBullet" && dead == false)
